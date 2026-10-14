@@ -40,7 +40,7 @@ is_valid_profile_name() {
 }
 
 # -----------------------------------------------------------------------
-# get_config — return full config.json
+# get_config - return full config.json
 # -----------------------------------------------------------------------
 if [ "$ACTION" = "get_config" ]; then
     if [ -f "$CONFIG_FILE" ]; then
@@ -50,7 +50,7 @@ if [ "$ACTION" = "get_config" ]; then
     fi
 
 # -----------------------------------------------------------------------
-# list_profiles — return array of profile names from config
+# list_profiles - return array of profile names from config
 # -----------------------------------------------------------------------
 elif [ "$ACTION" = "list_profiles" ]; then
     if ! command -v jq > /dev/null 2>&1; then
@@ -61,7 +61,7 @@ elif [ "$ACTION" = "list_profiles" ]; then
     echo "{\"success\": true, \"profiles\": $PROFILES}"
 
 # -----------------------------------------------------------------------
-# add_game — add a package to routing_rules for a given profile
+# add_game - add a package to routing_rules for a given profile
 # Uses jq for safe JSON manipulation (no more fragile sed)
 # -----------------------------------------------------------------------
 elif [ "$ACTION" = "add_game" ]; then
@@ -107,7 +107,7 @@ elif [ "$ACTION" = "add_game" ]; then
     echo '{"success": true}'
 
 # -----------------------------------------------------------------------
-# remove_game — remove all routing rules for a package
+# remove_game - remove all routing rules for a package
 # -----------------------------------------------------------------------
 elif [ "$ACTION" = "remove_game" ]; then
     if [ -z "$PKG" ]; then
@@ -132,7 +132,7 @@ elif [ "$ACTION" = "remove_game" ]; then
     echo '{"success": true}'
 
 # -----------------------------------------------------------------------
-# add_profile — add or update a device profile in config.json
+# add_profile - add or update a device profile in config.json
 # Expects POST body or query params with profile fields
 # Minimal required: name, MANUFACTURER, BRAND, MODEL, DEVICE, PRODUCT, FINGERPRINT
 # -----------------------------------------------------------------------
@@ -172,7 +172,7 @@ elif [ "$ACTION" = "add_profile" ]; then
     echo '{"success": true}'
 
 # -----------------------------------------------------------------------
-# delete_profile — remove a profile and all its routing rules
+# delete_profile - remove a profile and all its routing rules
 # -----------------------------------------------------------------------
 elif [ "$ACTION" = "delete_profile" ]; then
     if [ -z "$PROFILE" ]; then
@@ -194,7 +194,7 @@ elif [ "$ACTION" = "delete_profile" ]; then
     echo '{"success": true}'
 
 # -----------------------------------------------------------------------
-# get_apps_async — list installed apps asynchronously
+# get_apps_async - list installed apps asynchronously
 # -----------------------------------------------------------------------
 elif [ "$ACTION" = "get_apps_async" ]; then
     rm -f /data/local/tmp/gameunlocker_apps.json
@@ -232,7 +232,7 @@ elif [ "$ACTION" = "get_apps_async" ]; then
     echo '{"success": true, "message": "fetching"}'
 
 # -----------------------------------------------------------------------
-# poll_apps — check if async app list is ready
+# poll_apps - check if async app list is ready
 # -----------------------------------------------------------------------
 elif [ "$ACTION" = "poll_apps" ]; then
     if [ -f /data/local/tmp/gameunlocker_apps.json ]; then
@@ -242,7 +242,7 @@ elif [ "$ACTION" = "poll_apps" ]; then
     fi
 
 # -----------------------------------------------------------------------
-# upload_config — restore configuration from backup
+# upload_config - restore configuration from backup
 # -----------------------------------------------------------------------
 elif [ "$ACTION" = "upload_config" ]; then
     if [ "$REQUEST_METHOD" = "POST" ]; then
@@ -298,7 +298,7 @@ elif [ "$ACTION" = "update_cloud_profiles" ]; then
     rm -f "$TMP_CLOUD"
 
 # -----------------------------------------------------------------------
-# get_device_info — real device model + active spoof status
+# get_device_info - real device model + active spoof status
 # -----------------------------------------------------------------------
 elif [ "$ACTION" = "get_device_info" ]; then
     MODEL=$(getprop ro.product.model)
@@ -310,7 +310,7 @@ elif [ "$ACTION" = "get_device_info" ]; then
     echo "{\"success\": true, \"model\": \"$MODEL\", \"brand\": \"$BRAND\", \"android\": \"$ANDROID\", \"soc\": \"$SOC\", \"active_games\": $ACTIVE_GAMES}"
 
 # -----------------------------------------------------------------------
-# generate_logs — dump recent GameUnlocker logcat output
+# generate_logs - dump recent GameUnlocker logcat output
 # -----------------------------------------------------------------------
 elif [ "$ACTION" = "generate_logs" ]; then
     SNIPPET=$(logcat -d -s GameUnlocker -t 50 2>/dev/null)

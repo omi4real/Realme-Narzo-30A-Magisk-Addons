@@ -1,4 +1,4 @@
-# system.prop — intentionally left empty.
+# system.prop - intentionally left empty.
 #
 # Do NOT set ro.product.* props here globally.
 # Per-app device spoofing is handled dynamically by the Zygisk module

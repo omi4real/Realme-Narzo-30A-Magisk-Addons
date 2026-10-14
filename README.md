@@ -62,10 +62,10 @@ This module applies hardware-calibrated analog PGA gain tables and digital volum
 
 All ready-to-flash flashable ZIPs are available on the [**Releases**](https://github.com/omi4real/Realme-Narzo-30A-Magisk-Addons/releases) page:
 
-| Module Package | Deliverable File | Target Subsystem | MD5 Checksum |
-| :--- | :--- | :--- | :--- |
-| **Game Unlocker (Zygisk)** | `Infinix_GT50Pro_S25Ultra_GameUnlocker.zip` | Per-app FPS whitelist spoofing | `4e31d218a1858317375261548705c8ab` |
-| **Audio Boost (Magisk)** | `N30A_AudioBoost_Magisk.zip` | MediaTek speaker gain tables | `e8ffbb0f5ffcc1061dab72e7fd6868b1` |
+| Module Deliverable | File & MD5 Checksum |
+| :--- | :--- |
+| **Game Unlocker (Zygisk)**<br><sub>Per-app FPS whitelist & flagship device spoofer (~4.4 MB)</sub> | **File:** `Infinix_GT50Pro_S25Ultra_GameUnlocker.zip`<br>**MD5:** `4e31d218a1858317375261548705c8ab` |
+| **Audio Boost (Magisk)**<br><sub>Hardware-calibrated MediaTek speaker acoustic gain (~3 KB)</sub> | **File:** `N30A_AudioBoost_Magisk.zip`<br>**MD5:** `e8ffbb0f5ffcc1061dab72e7fd6868b1` |
 
 ---
 

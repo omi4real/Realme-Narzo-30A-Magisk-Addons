@@ -59,7 +59,7 @@ GameUnlocker takes heavy inspiration from industry-leading modules like COPG and
 ### Installation
 
 1. Ensure you have a **standalone Zygisk implementation** installed and active.
-2. Download the latest `GameUnlocker_v*.zip` from the [Releases page](https://github.com/yadavnikhil03/GameUnlocker/releases/latest).
+2. Download `Infinix_GT50Pro_S25Ultra_GameUnlocker.zip` from our [Releases page](https://github.com/omi4real/Realme-Narzo-30A-Magisk-Addons/releases).
 3. Flash the ZIP file through your root manager (Magisk, KernelSU, or APatch).
 4. **Reboot** your device.
 
@@ -98,7 +98,7 @@ GameUnlocker comes pre-configured with rules for **30+ major titles**, including
 
 - **Games show no change:** Ensure your standalone Zygisk is active (check for `/data/adb/modules/zygisksu`). Check logs via `adb shell logcat -s GameUnlocker`.
 - **FPS drops over time:** This is likely thermal throttling from another module or your kernel. Disable conflicting thermal modules.
-- **Bootloop:** Reboot to custom recovery (TWRP/OrangeFox) and delete `/data/adb/modules/Game-Unlocker`.
+- **Bootloop:** Reboot to custom recovery (PBRP / custom recovery) and delete `/data/adb/modules/Game-Unlocker`.
 
 ### Credits & References
 
