@@ -1,0 +1,11 @@
+# Builds & packages
+*.zip
+*.apk
+*.idsig
+build/
+dist/
+
+# OS & Editor files
+.DS_Store
+*.tmp
+*~

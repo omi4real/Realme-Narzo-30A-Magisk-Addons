@@ -1,0 +1,6 @@
+id=n30a_audio_boost
+name=N30A Audio Boost Addon (RMX3171)
+version=v1.0
+versionCode=1
+author=RMX3171 KeepQassa Port
+description=Optional speaker/earpiece loudness boost for Realme Narzo 30A (RMX3171). Speaker analog gain +4dB and earpiece +6dB over stock RUI values (speaker_pga=6 / receiver_pga=2 in the internal line-out mapping). Remove this module to return to stock audio.
