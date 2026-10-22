@@ -21,9 +21,10 @@ Realme-Narzo-30A-Magisk-Addons/
 │   ├── webroot/               # Local WebUI dashboard for game management
 │   └── common/                # Per-package spoof config and dynamic thermal rules
 └── audio_boost/               # MediaTek loudspeaker acoustic gain booster
+    ├── bin/tinymix            # Static aarch64 ALSA hardware mixer override tool
     ├── customize.sh           # Magisk module installation logic
-    ├── service.sh             # Late-start HAL reload & bind mount daemon
-    ├── system/vendor/etc/     # Magisk overlay for MTK ALSA audio parameters
+    ├── service.sh             # Late-start HAL reload & hardware register lock daemon
+    ├── system/vendor/etc/     # Complete 5-pillar MTK audio parameter overlays
     └── audio_param_reference/ # Raw OEM and calibrated audio tuning XML tables
 ```
 
@@ -44,19 +45,31 @@ Game Unlocker intercepts system property reads and patches `android.os.Build` fi
 
 ---
 
-## 🔊 2. Audio Boost (MediaTek Speaker Gain Fix)
+## 🔊 2. Ultimate Audio Boost (MediaTek MT6769 / MT6358 5-Pillar Architecture)
 
 * **Directory:** `audio_boost/`
 * **Package:** `N30A_AudioBoost_Magisk.zip`
-* **Target:** MediaTek MT6769 / MT6768 Internal Codec & Line-out Amplifier
+* **Target:** MediaTek MT6769Z (Helio G85) MT6358 Codec & SI-INTECH SIA8101 Speaker Amp
 
-### Architectural Overview
-On the Helio G85 platform, loudspeaker pathing is managed by `/vendor/etc/audio_param/oppo6769_206AC_533/PlaybackVolAna_AudioParam.xml`. When using the `int_lo_buf` (internal line-out buffer) path, stock firmware attenuates analog speaker levels.
+### Architectural Overview & Technical Findings
+On the Realme Narzo 30A (`RMX3171`), loudspeaker audio is routed through the MediaTek MT6358 Codec line-out buffer (`int_lo_buf`) feeding a dedicated SI-INTECH SIA8101 Class-D external amplifier via ALSA mixer controls `Lineout_PGAL_GAIN` and `Lineout_PGAR_GAIN`.
 
-This module applies hardware-calibrated analog PGA gain tables and overlay mounting at boot:
-* **Analog Speaker Boost (+4dB):** Corrects `speaker_pga` index to boost analog acoustic loudspeaker volume cleanly without amplifier clipping or distortion.
-* **Earpiece Boost (+6dB):** Adjusts `receiver_pga` index to improve in-call audio clarity.
-* **Non-Destructive Magisk Overlay:** Replaces parameters cleanly via Magisk magic mount and live HAL restart, returning to stock upon module removal.
+Stock Realme UI 1.0 firmware clamped audio volume through multiple redundant software and hardware bottlenecks:
+1. **Analog Codec Attenuation (`PlaybackVolAna_AudioParam.xml`):** Stock set `speaker_pga = 15` (-7 dB attenuation). Baseline vendor set `7` (+1 dB).
+2. **Volume Curve Clamping (`VolumeGainMap_AudioParam.xml`):** `param_id="3"` (`SPK_LO`) hard-coded `dl_total_gain` and `dl_analog_gain` to `-1 dB` maximum across all 40 volume steps, overriding higher user settings.
+3. **Music DRC Bypass (`PlaybackDRC_AudioParam.xml`):** Ringtones received full dynamic range compression (`DRC_Gn = 6144`), while music playback had zero dynamic makeup gain (`DRC_Gn = 0`), making media volume sound muffled compared to ringtones.
+4. **Hardware Notch Filtering (`PlaybackACF_AudioParam.xml`):** An aggressive notch filter (`bes_loudness_L_bpf_gain = -1023`) heavily attenuated 300 Hz vocal frequencies, while WideSound gain was disabled (`WS_Gain_Max = 0x0`).
+5. **Runtime Gain Reset:** During Android initialization, `AudioMTKGainController::setVoiceVolume` reset ALSA line-out gain registers to index `11` (-3 dB).
+
+### Full 5-Pillar Calibration Applied
+This module combines XML parameter overlays with a late-start ALSA hardware daemon:
+* **Analog Line-Out Boost (+8 dB MAX):** Uncaps `speaker_pga` to index `0` (+8 dB analog headroom, a **+15 dB increase** over stock OEM).
+* **In-Call Earpiece Boost (+6 dB):** Sets `receiver_pga` to index `2` for crystal-clear call audio.
+* **VolumeGainMap Uncap:** Unlocks positive analog/total gain curves up to +8 dB in `SPK_LO`.
+* **Digital Dynamic Range (+8 dB):** Unlocks positive digital gain steps up to +8 dB in `PlaybackVolDigi`.
+* **Ringtone-Grade DRC Makeup:** Injects 6144 makeup gain and Sub-Band expansion into music playback.
+* **Acoustic Filter Relaxation:** Removes the -1023 notch filter and enables `bes_loudness_WS_Gain_Max = 0x8` (+8 dB WideSound).
+* **Late-Start Mixer Lock Daemon:** Bundles a static `tinymix` binary in `service.sh` that explicitly locks ALSA hardware registers (`Lineout_PGAL_GAIN = 0`, `ADDA_DL_GAIN = 65535`) after Android boot to prevent framework overrides.
 
 ---
 
@@ -67,7 +80,7 @@ All ready-to-flash flashable ZIPs are available on the [**Releases**](https://gi
 | Module Deliverable | File & MD5 Checksum |
 | :--- | :--- |
 | **Game Unlocker (Zygisk)**<br><sub>Per-app FPS whitelist & flagship device spoofer (~4.4 MB)</sub> | **File:** `Infinix_GT50Pro_S25Ultra_GameUnlocker.zip`<br>**MD5:** `4e31d218a1858317375261548705c8ab` |
-| **Audio Boost (Magisk)**<br><sub>Hardware-calibrated MediaTek speaker acoustic gain (~5.4 KB)</sub> | **File:** `N30A_AudioBoost_Magisk.zip`<br>**MD5:** `bedf0e69d2a69aa2e1836b2ca42abd97` |
+| **Audio Boost (Magisk)**<br><sub>Hardware-calibrated MediaTek 5-pillar audio booster (~299 KB)</sub> | **File:** `N30A_AudioBoost_Magisk.zip`<br>**MD5:** `e38bee98a88d33c3dadfb38c4656d0ce` |
 
 ---
 
