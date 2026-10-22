@@ -1,25 +1,20 @@
-# Realme Narzo 30A (RMX3171) - Magisk & Zygisk Addons Suite
+# Realme Narzo 30A (RMX3171) - Magisk Addons Suite
 
 [![Device](https://img.shields.io/badge/Device-Realme_Narzo_30A_(RMX3171)-blue?style=flat-square)](https://github.com/omi4real/Realme-Narzo-30A-RMX3171-keepQASSA-Unofficial)
 [![SoC](https://img.shields.io/badge/SoC-MediaTek_Helio_G85-orange?style=flat-square)](https://www.mediatek.com)
 [![Platform](https://img.shields.io/badge/Root-Magisk_/_KernelSU_/_APatch-brightgreen?style=flat-square)](https://github.com/topjohnwu/Magisk)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blueviolet?style=flat-square)](./LICENSE)
 
-A curated suite of high-performance root modules and Zygisk addons built and tuned specifically for the **Realme Narzo 30A (`RMX3171`)** running Android 10 (#keepQASSA) or compatible AOSP custom ROMs.
+A curated suite of hardware-calibrated root modules built and tuned specifically for the **Realme Narzo 30A (`RMX3171`)** running Android 10 (#keepQASSA) or compatible AOSP custom ROMs.
 
 Companion repository to the official [**Realme Narzo 30A #keepQASSA ROM Port**](https://github.com/omi4real/Realme-Narzo-30A-RMX3171-keepQASSA-Unofficial).
 
 ---
 
-## 📦 Included Modules
+## 📦 Repository Structure
 
 ```text
 Realme-Narzo-30A-Magisk-Addons/
-├── game_unlocker/             # Native Zygisk per-app device spoofing engine
-│   ├── gu_controller_arm64    # Native daemon IPC controller
-│   ├── zygisk/                # Pre-specialization PLT hook libraries (arm64 & v7a)
-│   ├── webroot/               # Local WebUI dashboard for game management
-│   └── common/                # Per-package spoof config and dynamic thermal rules
 └── audio_boost/               # MediaTek loudspeaker acoustic gain booster
     ├── bin/tinymix            # Static aarch64 ALSA hardware mixer override tool
     ├── customize.sh           # Magisk module installation logic
@@ -30,22 +25,7 @@ Realme-Narzo-30A-Magisk-Addons/
 
 ---
 
-## 🎮 1. Game Unlocker (Zygisk High-FPS & Thermal Spoof)
-
-* **Directory:** `game_unlocker/`
-* **Package:** `Infinix_GT50Pro_S25Ultra_GameUnlocker.zip`
-* **Target:** PUBG Mobile / BGMI, Call of Duty Mobile, Free Fire Max, Farlight 84, Genshin Impact
-
-### Architectural Overview
-Game Unlocker intercepts system property reads and patches `android.os.Build` fields (`MANUFACTURER`, `MODEL`, `FINGERPRINT`) natively inside the Zygote fork lifecycle (`preAppSpecialize`) before the target game initializes. This tricks server-side whitelists into recognizing the Narzo 30A as a flagship device (such as the Infinix GT 50 Pro or Samsung Galaxy S25 Ultra), unlocking 60 FPS, 90 FPS, and 120 FPS graphics settings.
-
-* **Native Hooking:** Injects hooks via PLT hooking (`bytehook`) at the native libc level, remaining invisible to user-space anti-cheat engines.
-* **Per-Package Isolation:** Device spoofing is strictly scoped to designated game package names (`common/config.json`). It will never leak spoofed fingerprints to banking or wallet apps.
-* **Integrated WebUI:** Built-in web dashboard accessible from Magisk or browser to toggle spoof profiles and add custom game packages without rebooting.
-
----
-
-## 🔊 2. Ultimate Audio Boost (MediaTek MT6769 / MT6358 5-Pillar Architecture)
+## 🔊 1. Ultimate Audio Boost (MediaTek MT6769 / MT6358 5-Pillar Architecture)
 
 * **Directory:** `audio_boost/`
 * **Package:** `N30A_AudioBoost_Magisk.zip`
@@ -79,8 +59,7 @@ All ready-to-flash flashable ZIPs are available on the [**Releases**](https://gi
 
 | Module Deliverable | File & MD5 Checksum |
 | :--- | :--- |
-| **Game Unlocker (Zygisk)**<br><sub>Per-app FPS whitelist & flagship device spoofer (~4.4 MB)</sub> | **File:** `Infinix_GT50Pro_S25Ultra_GameUnlocker.zip`<br>**MD5:** `4e31d218a1858317375261548705c8ab` |
-| **Audio Boost (Magisk)**<br><sub>Hardware-calibrated MediaTek 5-pillar audio booster (~299 KB)</sub> | **File:** `N30A_AudioBoost_Magisk.zip`<br>**MD5:** `e38bee98a88d33c3dadfb38c4656d0ce` |
+| **Audio Boost (Magisk)**<br><sub>Hardware-calibrated MediaTek 5-pillar audio booster (~299 KB)</sub> | **File:** `N30A_AudioBoost_Magisk.zip`<br>**MD5:** `e38bee98a88d33c3dadfb38c4656d0ce`<br>**SHA-256:** `dd55fdfe8c561a2b28b330b067f125a5d41731e3d3111f05b64ffc4d38984bc6` |
 
 ---
 
@@ -89,12 +68,12 @@ All ready-to-flash flashable ZIPs are available on the [**Releases**](https://gi
 ### Prerequisites
 1. An unlocked bootloader on the **Realme Narzo 30A (`RMX3171`)**.
 2. Root solution installed:
-   * **Magisk:** v24.0 or newer (v30.7 recommended) with **Zygisk enabled** in Magisk settings (required for Game Unlocker).
-   * **KernelSU:** With ZygiskNext module installed.
-   * **APatch:** With ZygiskNext module installed.
+   * **Magisk:** v24.0 or newer (v30.7 recommended).
+   * **KernelSU:** v0.6.0 or newer.
+   * **APatch:** v10.7 or newer.
 
 ### Flashing via Root Manager
-1. Download the target `.zip` module from [**Releases**](https://github.com/omi4real/Realme-Narzo-30A-Magisk-Addons/releases).
+1. Download `N30A_AudioBoost_Magisk.zip` from [**Releases**](https://github.com/omi4real/Realme-Narzo-30A-Magisk-Addons/releases).
 2. Open **Magisk** (or KernelSU / APatch).
 3. Navigate to the **Modules** tab.
 4. Select **Install from storage** and choose the downloaded ZIP.
@@ -106,5 +85,5 @@ All ready-to-flash flashable ZIPs are available on the [**Releases**](https://gi
 ## 📄 License & Credits
 
 * **License:** Apache License 2.0 (see [LICENSE](./LICENSE)).
-* **Game Unlocker Upstream Engine:** Original Zygisk core architecture by @yadavnikhil03. Custom profiles, thermal rules, and Narzo 30A adaptations maintained by omi4real.
 * **Narzo 30A Port Project:** [Realme-Narzo-30A-RMX3171-keepQASSA-Unofficial](https://github.com/omi4real/Realme-Narzo-30A-RMX3171-keepQASSA-Unofficial).
+* **Hardware Research & Engineering:** omi4real.
