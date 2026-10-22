@@ -21,8 +21,9 @@ Realme-Narzo-30A-Magisk-Addons/
 │   ├── webroot/               # Local WebUI dashboard for game management
 │   └── common/                # Per-package spoof config and dynamic thermal rules
 └── audio_boost/               # MediaTek loudspeaker acoustic gain booster
-    ├── service.d/             # Boot-time ALSA audio parameter injection script
-    ├── vendor/etc/audio_param # Hardware-matched analog gain XML profiles
+    ├── customize.sh           # Magisk module installation logic
+    ├── service.sh             # Late-start HAL reload & bind mount daemon
+    ├── system/vendor/etc/     # Magisk overlay for MTK ALSA audio parameters
     └── audio_param_reference/ # Raw OEM and calibrated audio tuning XML tables
 ```
 
@@ -50,11 +51,12 @@ Game Unlocker intercepts system property reads and patches `android.os.Build` fi
 * **Target:** MediaTek MT6769 / MT6768 Internal Codec & Line-out Amplifier
 
 ### Architectural Overview
-On the Helio G85 platform, loudspeaker pathing is managed by `/vendor/etc/audio_param/oppo6769_206AC_533/PlaybackVolAna_AudioParam.xml`. When using the `int_lo_buf` (internal line-out buffer) path, incorrect check-list indexes can unintentionally attenuate audio output.
+On the Helio G85 platform, loudspeaker pathing is managed by `/vendor/etc/audio_param/oppo6769_206AC_533/PlaybackVolAna_AudioParam.xml`. When using the `int_lo_buf` (internal line-out buffer) path, stock firmware attenuates analog speaker levels.
 
-This module applies hardware-calibrated analog PGA gain tables and digital volume multipliers at boot:
-* **Analog Gain Correction:** Calibrates internal check-list levels to maximize loudspeaker acoustic volume without clipping or distortion.
-* **Digital Dynamic Range:** Reconciles `PlaybackVolDigi` and `VolumeGainMap` to ensure linear volume slider steps from 0% to 100%.
+This module applies hardware-calibrated analog PGA gain tables and overlay mounting at boot:
+* **Analog Speaker Boost (+4dB):** Corrects `speaker_pga` index to boost analog acoustic loudspeaker volume cleanly without amplifier clipping or distortion.
+* **Earpiece Boost (+6dB):** Adjusts `receiver_pga` index to improve in-call audio clarity.
+* **Non-Destructive Magisk Overlay:** Replaces parameters cleanly via Magisk magic mount and live HAL restart, returning to stock upon module removal.
 
 ---
 
@@ -65,7 +67,7 @@ All ready-to-flash flashable ZIPs are available on the [**Releases**](https://gi
 | Module Deliverable | File & MD5 Checksum |
 | :--- | :--- |
 | **Game Unlocker (Zygisk)**<br><sub>Per-app FPS whitelist & flagship device spoofer (~4.4 MB)</sub> | **File:** `Infinix_GT50Pro_S25Ultra_GameUnlocker.zip`<br>**MD5:** `4e31d218a1858317375261548705c8ab` |
-| **Audio Boost (Magisk)**<br><sub>Hardware-calibrated MediaTek speaker acoustic gain (~3 KB)</sub> | **File:** `N30A_AudioBoost_Magisk.zip`<br>**MD5:** `e8ffbb0f5ffcc1061dab72e7fd6868b1` |
+| **Audio Boost (Magisk)**<br><sub>Hardware-calibrated MediaTek speaker acoustic gain (~5.4 KB)</sub> | **File:** `N30A_AudioBoost_Magisk.zip`<br>**MD5:** `bedf0e69d2a69aa2e1836b2ca42abd97` |
 
 ---
 
