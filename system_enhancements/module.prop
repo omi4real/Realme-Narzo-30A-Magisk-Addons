@@ -1,0 +1,6 @@
+id=n30a_enhancements
+name=N30A System & UI Enhancements (RMX3171)
+version=v3.0
+versionCode=7
+author=omi4real (GitHub: @omi4real)
+description=Multi Audio Focus in KeepQassa Settings, responsive fast-motion launcher tap fix, smooth scrolling (180Hz touch sampling rate), and kernel performance tuning for Realme Narzo 30A (RMX3171).

@@ -1,9 +1,11 @@
-# Builds & packages
 *.zip
-*.apk
-*.idsig
+# Builds & packages
 build/
 dist/
+*.idsig
+
+# Allow prebuilt system APKs in module tree
+!system_enhancements/**/*.apk
 
 # OS & Editor files
 .DS_Store
