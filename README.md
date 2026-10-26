@@ -32,6 +32,7 @@ Companion repository to the official [**Realme Narzo 30A #keepQASSA ROM Port**](
 | :--- | :--- | :--- |
 | **[🔊 1. Ultimate Audio Boost](#1-ultimate-audio-boost-v20)** | MediaTek MT6358 Codec & SIA8101 Amp | +15 dB analog line-out uncap, +6 dB earpiece boost, ringtone-grade DRC makeup gain, WideSound filter expansion, persistent ALSA mixer register lock. |
 | **[⚡ 2. System & UI Enhancements](#2-system--ui-enhancements-v30)** | Framework, Settings, Launcher, Touch | Multi Audio Focus concurrent playback in Settings, responsive fast-motion launcher tap-drop fix, 180Hz gaming touch sampling rate, Schedutil/GED engine. |
+| **[🚀 3. Performance Engine](#3-performance-engine-v10)** | CPU Governor, GPU GED, Storage, RAM, Touch | Standalone kernel performance suite: 500μs Schedutil latency, MediaTek GED GPU boost, eMMC 5.1 deadline I/O, ZRAM swappiness=80, and 180Hz touch polling. |
 
 ---
 
@@ -89,6 +90,23 @@ Stock Realme UI 1.0 clamped audio volume through multiple redundant software and
 
 ---
 
+### 3. Performance Engine (v1.0)
+* **Directory:** `performance_engine/`
+* **Deliverable:** `N30A_Performance_Engine_Magisk.zip`
+* **Size:** Ultra-lightweight (~5 KB)
+* **Target:** MediaTek Helio G85 (`MT6769Z`) Kernel, GED GPU Daemon, eMMC Storage, ZRAM, and Realme Touchpanel.
+
+#### Optimization Architecture
+Built specifically for users on **keepQASSA v2.5.s** (or those who already have UI components baked into `/system`) who want a pure, non-intrusive kernel optimization daemon without replacing any system APKs or clearing ART dalvik-cache:
+* **⚡ CPU Schedutil Latency (500μs ramp):** Lowers schedutil `up_rate_limit_us` from 10,000μs to **500μs**, achieving instant 0.5ms frequency response during UI interactions and eliminating frame stutters.
+* **🎮 MediaTek GED GPU Smart Boost:** Forces `ged_smart_boost=1`, `boost_gpu_enable=1`, and `enable_gpu_boost=1`, locking the Mali-G52 MC2 to its peak 823 MHz clock during graphics workloads.
+* **💾 eMMC 5.1 Storage I/O Optimization:** Switches queue scheduler to `deadline` and sets `read_ahead_kb = 512` for accelerated sequential app launch and asset streaming.
+* **🧠 ZRAM Thrashing Reduction:** Tunes `vm.swappiness = 80` and `vfs_cache_pressure = 50` with balanced dirty writeback ratios to eliminate background app killing.
+* **🖐️ 180Hz Gaming Touch Polling Engine:** Activates `/proc/touchpanel/game_switch_enable = 1` and disables OEM drag suppression (`oppo_tp_limit_enable = 0`) at boot.
+* **🔋 MediaTek PPM Ultra-Low Power Sleep Policy:** Enforces policy `9 1` during display-off states for exceptional battery life on the 6,000 mAh cell.
+
+---
+
 <a id="terminal-preview"></a>
 ## 📟 Terminal Flashing Preview
 
@@ -125,6 +143,7 @@ Both modules feature a clean, minimal ASCII art banner designed strictly under 3
 | Module ZIP Package | File Size | MD5 Checksum | SHA-256 Checksum |
 | :--- | :--- | :--- | :--- |
 | **`N30A_AudioBoost_Magisk.zip`** | ~299 KB | `ca42cfa46518f99a12c3e31ef734c0fc` | `03ba5ee230e851caacae0f8b53b38f1f37adcd6a2261f09c79813e8a214b4c37` |
+| **`N30A_Performance_Engine_Magisk.zip`** | ~5 KB | `bd7042a64f885976ea533f323c0c1b90` | `bea646c74560fd28c77d812cf2b71762d1b33d8b82f713712b03f00f28dad43e` |
 | **`N30A_System_Enhancements_Magisk.zip`** | ~38 MB | `4e7814dd9cce99a49511a7d159260556` | `011f3a87dff05bda98266235e2409b28fbfbbf6b0302f849472f02d9f8584ae0` |
 
 ---

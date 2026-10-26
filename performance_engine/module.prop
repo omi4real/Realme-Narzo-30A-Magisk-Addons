@@ -1,0 +1,6 @@
+id=n30a_performance_engine
+name=N30A Performance Engine (RMX3171)
+version=v1.0
+versionCode=1
+author=omi4real (GitHub: @omi4real)
+description=Kernel Schedutil latency reduction (500us), MediaTek GED GPU smart boost, eMMC 5.1 deadline I/O, ZRAM thrashing reduction, and 180Hz touch polling engine for Realme Narzo 30A (RMX3171).
