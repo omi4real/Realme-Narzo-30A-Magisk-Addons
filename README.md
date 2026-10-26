@@ -10,7 +10,7 @@
 [![Maintainer](https://img.shields.io/badge/Maintainer-omi4real-blueviolet?style=flat-square)](https://github.com/omi4real)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue?style=flat-square)](./LICENSE)
 
-A curated suite of hardware-calibrated root modules built and tuned specifically for the **Realme Narzo 30A (`RMX3171`)** running Android 10 (#keepQASSA) or compatible AOSP custom ROMs.
+A curated suite of hardware-calibrated root modules built and tuned specifically for the **Realme Narzo 30A (`RMX3171`)** running Android 10 (#keepQASSA).
 
 Companion repository to the official [**Realme Narzo 30A #keepQASSA ROM Port**](https://github.com/omi4real/Realme-Narzo-30A-RMX3171-keepQASSA-Unofficial).
 
@@ -21,7 +21,7 @@ Companion repository to the official [**Realme Narzo 30A #keepQASSA ROM Port**](
 ---
 
 > [!IMPORTANT]
-> **Compatibility & Target Platform:** These modules are engineered and hardware-tested specifically for the **Realme Narzo 30A (`RMX3171`)** powered by the **MediaTek Helio G85 (`MT6769Z`)**. While designed for [#keepQASSA Android 10](https://github.com/omi4real/Realme-Narzo-30A-RMX3171-keepQASSA-Unofficial), they are also compatible with other G85/MT6768 Android 10 custom ROMs and GSIs.
+> **Compatibility & Target Platform:** These modules are engineered and hardware-tested specifically for the **Realme Narzo 30A (`RMX3171`)** powered by the **MediaTek Helio G85 (`MT6769Z`)** running **[#keepQASSA Android 10](https://github.com/omi4real/Realme-Narzo-30A-RMX3171-keepQASSA-Unofficial)**. Flashing on other devices or unsupported ROMs is neither tested nor supported.
 
 ---
 
@@ -132,18 +132,14 @@ Both modules feature a clean, minimal ASCII art banner designed strictly under 3
 <a id="flashing-instructions"></a>
 ## 📲 Installation Instructions
 
-### Method 1: Via Magisk App (Recommended)
-1. Download the desired module `.zip` to your device storage.
+> [!NOTE]
+> **Flashing Method:** Installation is exclusively recommended and tested via the **Magisk App**. Flashing root modules through custom recovery (TWRP / OrangeFox) is not recommended and unsupported.
+
+1. Download the desired module `.zip` from [**Releases**](https://github.com/omi4real/Realme-Narzo-30A-Magisk-Addons/releases) to your internal device storage.
 2. Open the **Magisk App** and navigate to the **Modules** tab.
 3. Tap **Install from storage** and select the `.zip` file.
 4. Verify the terminal flashing output and wait for the installer to finish.
 5. Tap **Reboot**.
-
-### Method 2: Via Custom Recovery (TWRP / OrangeFox)
-1. Boot into recovery mode (`Power + Volume Down`).
-2. Go to **Install** and select the `.zip` file from internal storage or SD card.
-3. Swipe to confirm flash.
-4. Reboot System.
 
 ---
 
